@@ -5,30 +5,29 @@ const frankieDettoriSkin: SkinConfig = {
   influencer: {
     name: 'Frankie Dettori',
     handle: '@frankiedettori',
-    avatar: '/skins/frankie-dettori/avatar.jpg',
     tagline: 'Legendary jockey. 3x Champion. Pick like a pro.',
+    avatar: '/frankie.jpg',
   },
   branding: {
-    primaryColor: '#1a1a2e',      // deep navy
-    secondaryColor: '#c9a84c',    // racing gold
-    accentColor: '#e63946',       // racing red
-    backgroundColor: '#0f0f1a',   // near black
-    textColor: '#f5f0e8',         // warm white
-    fontDisplay: 'Playfair Display',
-    fontBody: 'Inter',
+    primaryColor: '#12111a',
+    secondaryColor: '#c9a84c',
+    accentColor: '#e63946',
+    backgroundColor: '#0a0910',
+    cardBackground: '#16151f',
+    textColor: '#f0ece0',
+    subtleText: '#6b6880',
+    fontDisplay: 'Georgia, "Times New Roman", serif',
+    fontBody: 'system-ui, -apple-system, sans-serif',
   },
   copy: {
     heroHeadline: "Pick Like Frankie",
-    heroSubtitle: "Build your Cheltenham squad. Score points on every finish. Compete with Frankie's picks.",
-    pickCta: "Add to Squad",
-    squadLabel: "My Squad",
+    heroSubtitle: "Choose your horse, jockey and trainer for each day. Crown your captain. Compete on the leaderboard.",
     competitionName: "Frankie's Cheltenham Challenge",
   },
   monetisation: {
     operatorName: 'Bet365',
-    operatorUrl: 'https://www.bet365.com/?affiliate=KTAG_ID_HERE',
-    offerText: 'Bet on today\'s races with Bet365 — New customer offer',
-    adEnabled: true,
+    operatorUrl: 'https://www.bet365.com',
+    offerText: 'Bet on today\'s races — New customer offer',
   },
 };
 

@@ -1,15 +1,14 @@
 import type { Metadata } from 'next';
-import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Racing Engine',
-  description: 'Festival pick\'em game',
+  title: "Frankie's Cheltenham Challenge",
+  description: 'Pick your horse, jockey and trainer. Compete daily.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body style={{ margin: 0, padding: 0, background: '#0a0910' }}>{children}</body>
     </html>
   );
 }

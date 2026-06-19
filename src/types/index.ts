@@ -1,37 +1,69 @@
 export type Rarity = 'gold' | 'silver' | 'bronze';
+export type CardType = 'horse' | 'jockey' | 'trainer';
 
-export interface Horse {
+export interface BaseCard {
   id: string;
   name: string;
-  jockey: string;
-  trainer: string;
-  odds: number; // decimal odds e.g. 3.5
-  oddsDisplay: string; // e.g. "5/2"
   rarity: Rarity;
-  form: string; // e.g. "1-2-1-3"
-  number: number; // race number
-  silk?: string; // jockey silk image url
+  type: CardType;
+  raceId: string;
+  raceName: string;
+  raceTime: string;
+  raceDay: number;
+  form: string;
+}
+
+export interface HorseCard extends BaseCard {
+  type: 'horse';
+  number: number;
+  odds: number;
+  oddsDisplay: string;
+  jockeyName: string;
+  trainerName: string;
+}
+
+export interface JockeyCard extends BaseCard {
+  type: 'jockey';
+  horseNames: string[]; // horses they ride in this race
+  winRate7d: string;
+}
+
+export interface TrainerCard extends BaseCard {
+  type: 'trainer';
+  horseNames: string[]; // horses they train in this race
+  winRate7d: string;
+}
+
+export type AnyCard = HorseCard | JockeyCard | TrainerCard;
+
+export interface DaySquad {
+  day: number;
+  horse: HorseCard | null;
+  jockey: JockeyCard | null;
+  trainer: TrainerCard | null;
+  captainType: 'jockey' | null; // captain can only be placed on jockey
 }
 
 export interface Race {
   id: string;
   name: string;
-  time: string; // ISO string
+  time: string;
   course: string;
-  day: number; // festival day 1-4
-  distance: string; // e.g. "2m4f"
-  grade: string; // e.g. "Grade 1"
-  runners: Horse[];
-  result?: RaceResult;
+  day: number;
+  distance: string;
+  grade: string;
+  runners: Runner[];
 }
 
-export interface RaceResult {
-  raceId: string;
-  positions: {
-    horseId: string;
-    position: number;
-  }[];
-  settledAt: string;
+export interface Runner {
+  id: string;
+  horseName: string;
+  jockeyName: string;
+  trainerName: string;
+  odds: number;
+  oddsDisplay: string;
+  form: string;
+  number: number;
 }
 
 export interface Festival {
@@ -44,71 +76,43 @@ export interface Festival {
   races: Race[];
 }
 
-export interface HorseCard {
-  horse: Horse;
-  raceId: string;
-  raceName: string;
-  raceTime: string;
-  raceDay: number;
-}
-
-export interface Squad {
-  userId: string;
-  festivalId: string;
-  picks: SquadPick[]; // max 6 horses, one per race day slot
-}
-
-export interface SquadPick {
-  card: HorseCard;
-  lockedAt: string;
-}
-
-export interface Score {
-  userId: string;
-  festivalId: string;
-  totalPoints: number;
-  breakdown: ScoreBreakdown[];
-}
-
-export interface ScoreBreakdown {
-  raceId: string;
-  raceName: string;
-  horseId: string;
-  horseName: string;
-  finishPosition: number;
-  oddsMultiplier: number;
-  points: number;
-}
-
 export interface SkinConfig {
   id: string;
   influencer: {
     name: string;
     handle: string;
-    avatar: string;
     tagline: string;
+    avatar: string;
   };
   branding: {
     primaryColor: string;
     secondaryColor: string;
     accentColor: string;
     backgroundColor: string;
+    cardBackground: string;
     textColor: string;
+    subtleText: string;
     fontDisplay: string;
     fontBody: string;
-    logo?: string;
   };
   copy: {
     heroHeadline: string;
     heroSubtitle: string;
-    pickCta: string;
-    squadLabel: string;
     competitionName: string;
   };
   monetisation: {
     operatorName: string;
-    operatorUrl: string; // KTAG tracking URL
+    operatorUrl: string;
     offerText: string;
-    adEnabled: boolean;
   };
+}
+
+export interface ScoreBreakdown {
+  day: number;
+  raceName: string;
+  horsePoints: number;
+  jockeyPoints: number;
+  trainerPoints: number;
+  captainBonus: number;
+  total: number;
 }
